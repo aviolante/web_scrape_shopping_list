@@ -99,6 +99,7 @@ product_desc_df['sale_price'] = np.where(product_desc_df['on_sale_flag']==1, pro
 product_desc_df['msrp_price'] = np.where(product_desc_df['price_2'].isnull(), product_desc_df['price_1'],
                                          product_desc_df['price_2'])
 
+# percent off amount
 product_desc_df['sale_perc_off'] = \
     np.round(np.where(product_desc_df['sale_price'] > 0,
              (1 - (product_desc_df['sale_price'] / product_desc_df['msrp_price'])) * 100, 0), 0)
