@@ -5,7 +5,7 @@ import numpy as np
 pd.set_option('display.max_columns', None)
 
 # open blank browser
-driver = webdriver.Chrome()
+driver = webdriver.Firefox()
 
 # navigate to a url
 url = 'https://www.zappos.com/'
@@ -22,7 +22,7 @@ time.sleep(5)
 search_btn = driver.find_element_by_xpath("//form[@class='ff']"
                                           "//button[@type='submit']")
 search_btn.click()
-time.sleep(7)
+time.sleep(5)
 
 # find and click "$100 & Under" tile
 gifts_under_100 = driver.find_element_by_xpath("//div[@class='h_markdown']"
@@ -70,6 +70,12 @@ for image in product_image:
     product_image_url.append(image.get_attribute("src"))
     product_image_alt.append(image.get_attribute("alt"))
 
+# verify length of our lists
+print(len(product_desc))
+print(len(product_urls))
+print(len(product_image_url))
+print(len(product_image_alt))
+
 # data cleaning
 """ this section is taking the output of our scraper and converting it to a pandas
     dataframe as well as some cleaning and preparing the data"""
@@ -83,7 +89,7 @@ product_desc_df['product_image_alt'] = product_image_alt
 # remove '$' character from price
 product_desc_df['price'] = product_desc_df['price'].str.replace('$', '')
 
-# split price column to see price and sale price
+# clean / split price column to see price and sale price
 product_desc_df[['price_1', 'price_2']] = product_desc_df['price'].str.split('MSRP ', expand=True)
 
 # convert columns to numeric
@@ -113,5 +119,3 @@ final_shopping_df = product_desc_df[final_cols]
 
 # save out final shopping list as csv
 final_shopping_df.to_csv('~/final_shopping_df.csv', index=False)
-
-
