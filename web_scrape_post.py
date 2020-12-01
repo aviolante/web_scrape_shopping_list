@@ -33,7 +33,7 @@ gifts_under_100 = driver.find_element_by_xpath("//div[@class='h_markdown']"
 gifts_under_100.click()
 time.sleep(3)
 
-# step scroll to bottom to load all images
+# section scroll to bottom to load all images
 for i in range(35):
        driver.execute_script("window.scrollBy(0, 900)")
        time.sleep(1)
@@ -53,7 +53,7 @@ for info in product_info:
     product_desc.append(info.text.split('\n'))
     product_urls.append(info.get_attribute("href"))
 
-# get product image url and name
+# get product image url and alt tag
 product_image = driver.find_elements_by_xpath("//div[@class='h_quick-shop-style-tile']"
                                               "//article[@class='h_hatch-style-tile']"
                                               "//a[@class='h_hatch-element--a h_hatch-style-tile__link']"
@@ -75,6 +75,7 @@ print(len(product_desc))
 print(len(product_urls))
 print(len(product_image_url))
 print(len(product_image_alt))
+
 
 # data cleaning
 """ this section is taking the output of our scraper and converting it to a pandas
